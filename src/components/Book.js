@@ -1,6 +1,6 @@
 import React from "react";
 
-function Book(props) {
+function Book({ book, moveBook }) {
   return (
     <div>
       <div className="book">
@@ -10,11 +10,16 @@ function Book(props) {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${props.img})`,
+              backgroundImage: `url(${book.imageLinks.thumbnail})`,
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select>
+            <select
+              defaultValue={book.shelf}
+              onChange={(e) => {
+                moveBook(book.id, e.target.value);
+              }}
+            >
               <option value="none" disabled>
                 Move to...
               </option>
@@ -25,9 +30,9 @@ function Book(props) {
             </select>
           </div>
         </div>
-        <div className="book-title">{props.title}</div>
+        <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {props.authors.map((author) => (
+          {book.authors.map((author) => (
             <>
               {author} <br />
             </>
