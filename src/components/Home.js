@@ -1,34 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { getAll, update } from "../BooksAPI";
 
 import Shelf from "./Shelf";
 
-function Home() {
-  const [allBooks, setAllBooks] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const res = await getAll();
-      setAllBooks(res);
-    }
-
-    fetchData();
-  }, []);
-
-  const moveBook = (id, to) => {
-    const movedBook = allBooks
-      .filter((b) => b.id === id)
-      .map((m) => {
-        m.shelf = to;
-        return m;
-      });
-
-    const updatedBooks = allBooks.filter((b) => b.id !== id);
-
-    setAllBooks(updatedBooks.concat(movedBook));
-  };
-
+function Home(props) {
   return (
     <div>
       <div className="list-books">
@@ -39,20 +14,22 @@ function Home() {
           <div>
             <Shelf
               header="Currently Reading"
-              books={allBooks.filter(
+              books={props.allBooks.filter(
                 (book) => book.shelf === "currentlyReading"
               )}
-              moveBook={moveBook}
+              moveBook={props.moveBook}
             />
             <Shelf
               header="Want To Read"
-              books={allBooks.filter((book) => book.shelf === "wantToRead")}
-              moveBook={moveBook}
+              books={props.allBooks.filter(
+                (book) => book.shelf === "wantToRead"
+              )}
+              moveBook={props.moveBook}
             />
             <Shelf
               header="Read"
-              books={allBooks.filter((book) => book.shelf === "read")}
-              moveBook={moveBook}
+              books={props.allBooks.filter((book) => book.shelf === "read")}
+              moveBook={props.moveBook}
             />
           </div>
         </div>

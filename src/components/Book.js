@@ -2,7 +2,7 @@ import React from "react";
 
 function Book({ book, moveBook }) {
   return (
-    <div>
+    <div key={book.id}>
       <div className="book">
         <div className="book-top">
           <div
@@ -10,14 +10,14 @@ function Book({ book, moveBook }) {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.imageLinks.thumbnail})`,
+              backgroundImage: `url(${book?.imageLinks?.thumbnail})`,
             }}
           ></div>
           <div className="book-shelf-changer">
             <select
               defaultValue={book.shelf}
               onChange={(e) => {
-                moveBook(book.id, e.target.value);
+                moveBook(book, e.target.value);
               }}
             >
               <option value="none" disabled>
@@ -32,7 +32,7 @@ function Book({ book, moveBook }) {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book.authors.map((author) => (
+          {book?.authors?.map((author) => (
             <>
               {author} <br />
             </>
