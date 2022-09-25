@@ -40,7 +40,10 @@ function App() {
           path="/"
           element={<Home moveBook={moveBook} allBooks={allBooks} />}
         />
-        <Route path="/search" element={<Search moveBook={moveBook} />} />
+        <Route
+          path="/search"
+          element={<Search moveBook={moveBook} homeBooks={allBooks} />}
+        />
       </Routes>
     </div>
   );

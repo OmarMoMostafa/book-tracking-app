@@ -1,6 +1,6 @@
 import React from "react";
 
-function Book({ book, moveBook }) {
+function Book({ book, moveBook, shelf }) {
   return (
     <div key={book.id}>
       <div className="book">
@@ -15,7 +15,7 @@ function Book({ book, moveBook }) {
           ></div>
           <div className="book-shelf-changer">
             <select
-              defaultValue={book.shelf}
+              defaultValue={shelf}
               onChange={(e) => {
                 moveBook(book, e.target.value);
               }}
@@ -32,10 +32,10 @@ function Book({ book, moveBook }) {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book?.authors?.map((author) => (
-            <>
+          {book?.authors?.map((author, index) => (
+            <React.Fragment key={index}>
               {author} <br />
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>
